@@ -1,0 +1,17 @@
+{
+    "name": "juan/blog-mongo-db",
+    "autoload": {
+        "psr-4": {
+            "Juan\\BlogMongoDb\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Juan Guillen Martinez",
+            "email": "juanguillenmtz16@gmail.com"
+        }
+    ],
+    "require": {
+        "mongodb/mongodb": "^1.8"
+    }
+}
