@@ -9,13 +9,13 @@ function mostrarNoticiasId(id) {
         success: function (response) {
             var objNoticia = JSON.parse(response);
             var noticiaHtml = `<tr>
-                                        <td scope="row">${objNoticia[0].idNoticia}</td>
-                                        <td>${objNoticia[0].titulo}</td>
-                                        <td>${objNoticia[0].descripcion}</td>
-                                        <td>${objNoticia[0].encabezado}</td>
-                                        <td>${objNoticia[0].userName}</td>
-                                        <td>${objNoticia[0].fecha}</td>
-                                        <td>${objNoticia[0].nombreEtiqueta}</td>
+                                        <td scope="row">${objNoticia[0]}</td>
+                                        <td>${objNoticia[1]}</td>
+                                        <td>${objNoticia[2]}</td>
+                                        <td>${objNoticia[3]}</td>
+                                        <td>${objNoticia[4]}</td>
+                                        <td>${objNoticia[5]}</td>
+                                        <td>${objNoticia[6]}</td>
                                         <td><button type="button" class="btn btn-info">Editar</button></td>
                                         <td><button type="button" class="btn btn-danger">Eliminar</button></td>
                                     </tr>`;
@@ -32,13 +32,13 @@ function mostrarNoticias() {
             var noticias = JSON.parse(response);
             noticias.forEach((element) => {
                 var noticiaHtml = `<tr>
-                                        <td scope="row">${element.idNoticia}</td>
+                                        <td scope="row">${element._id}</td>
                                         <td>${element.titulo}</td>
                                         <td>${element.descripcion}</td>
                                         <td>${element.encabezado}</td>
-                                        <td>${element.userName}</td>
-                                        <td>${element.fecha}</td>
-                                        <td>${element.nombreEtiqueta}</td>
+                                        <td>${element.usuario}</td>
+                                        <td>${element.fechaPublicacion}</td>
+                                        <td>${element.etiquetas}</td>
                                         <td><button id="btnEditar" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalEditar">Editar</button></td>
                                         <td><button id="btnEliminar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">Eliminar</button></td>
                                         </tr>`;
@@ -87,13 +87,13 @@ function mostrarInformacionNoticia(id) {
         },
         success: function (response) {
             var objNoticia = JSON.parse(response);
-            $("#inputIdNoticiaEditar").val(objNoticia[0].idNoticia);
-            $("#inputTituloEditar").val(objNoticia[0].titulo);
-            $("#inputDescripcionEditar").val(objNoticia[0].descripcion);
-            $("#inputEncabezadoEditar").val(objNoticia[0].encabezado);
-            $("#inputIdUsuarioEditar").val(objNoticia[0].idUsuario);
-            $("#inputFechaPublicacionEditar").val(objNoticia[0].fecha);
-            $("#inputIdEtiquetaEditar").val(objNoticia[0].idEtiqueta);
+            $("#inputIdNoticiaEditar").val(objNoticia[0]);
+            $("#inputTituloEditar").val(objNoticia[1]);
+            $("#inputDescripcionEditar").val(objNoticia[2]);
+            $("#inputEncabezadoEditar").val(objNoticia[3]);
+            $("#inputIdUsuarioEditar").val(objNoticia[4]);
+            $("#inputFechaPublicacionEditar").val(objNoticia[5]);
+            $("#inputIdEtiquetaEditar").val(objNoticia[6]);
         },
     });
 }
@@ -111,7 +111,7 @@ function editarNoticia() {
         type: "POST",
         async: true,
         data: {
-            id: idNoticia,
+            idNoticia: idNoticia,
             titulo: titulo,
             descripcion: descripcion,
             encabezado: encabezado,

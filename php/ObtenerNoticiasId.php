@@ -1,20 +1,19 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/php/bd/SQLGlobal.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/php/bd/Conexion.php";
 try {
 
     $datos = $_POST;
 
-    $id = $datos['idNoticia'];
-    $consulta = "SELECT * FROM view_informacion_noticia WHERE idNoticia = ?";
-    $parametros = array($id);
-    $respuesta = SQLGlobal::selectArrayFiltro($consulta, $parametros);
-    if(!empty($respuesta)) {
-        echo json_encode($respuesta);
-    } else {
-        echo json_encode("notData");
+    $id = intval($datos['idNoticia']);
+    $coleccion = Conexion::obtenerConexionMongo()->blog->noticias;
+    $respuesta = $coleccion->findOne(['_id' => $id]);
+    $datos = null;
+    foreach($respuesta as $dato) {
+        $datos[] = $dato;
     }
+    echo json_encode($datos);
     
 } catch (Exception $e) {
-    echo SQLGlobal::errorAJson($e);
+    echo ($e);
 }
 ?>

@@ -145,7 +145,7 @@
                                 <input type="text" class="form-control" id="inputEncabezado" placeholder="Encabezado de la noticia">
                             </div>
                             <div class="form-group">
-                                <label for="titulo-id-usuario">ID del usuario</label>
+                                <label for="titulo-id-usuario">Usuario</label>
                                 <input type="text" class="form-control" id="inputIdUsuario" placeholder="ID del usuario">
                             </div>
                             <div class="form-group">
@@ -153,7 +153,7 @@
                                 <input type="text" class="form-control" id="inputFechaPublicacion" placeholder="Encabezado de la noticia">
                             </div>
                             <div class="form-group">
-                                <label for="titulo-id-etiqueta">ID de la etiqueta</label>
+                                <label for="titulo-id-etiqueta">Etiquetas</label>
                                 <input type="text" class="form-control" id="inputIdEtiqueta" placeholder="ID de la etiqueta">
                             </div>
                         </form>

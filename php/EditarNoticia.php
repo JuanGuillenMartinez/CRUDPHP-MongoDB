@@ -1,22 +1,30 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/php/bd/SQLGlobal.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/php/bd/Conexion.php";
 
 try {
     $datos = $_POST;
-
-    $idNoticia = $datos["id"];
+    $idNoticia = intval($datos["idNoticia"]);
     $titulo = $datos['titulo'];
     $descripcion = $datos['descripcion'];
     $encabezado = $datos['encabezado'];
-    $fkusuario = $datos['idUsuario'];
+    $usuario = $datos['idUsuario'];
     $fecha = $datos['fechaPublicacion'];
-    $fkEtiqueta = $datos['idEtiqueta'];
+    $etiqueta = $datos['idEtiqueta'];
 
-    $consulta = 'UPDATE noticias SET titulo = ?, descripcion = ?, encabezado = ?, fkusuario = ?, fecha = ?, fkEtiqueta = ? WHERE idNoticia = ?';
-    $parametros = array($titulo, $descripcion, $encabezado, $fkusuario, $fecha, $fkEtiqueta, $idNoticia);
-    $respuesta = SQLGlobal::cudFiltro($consulta, $parametros);
-    echo json_encode($respuesta);
+    $coleccion = Conexion::obtenerConexionMongo()->blog->noticias;
+    $resultado = $coleccion->updateOne(
+        ['_id' => $idNoticia],
+        ['$set' => [
+                    'titulo' => $titulo,
+                    'descripcion' => $descripcion,
+                    'encabezado' => $encabezado,
+                    'usuario'  => $usuario,
+                    'fechaPublicacion' => $fecha,
+                    'etiquetas' => $etiqueta
+                  ]]
+    );
+    echo json_encode($resultado->getModifiedCount());
 } catch (Exception $e) {
     echo json_encode("Ocurrio un error".$e);
 }  
