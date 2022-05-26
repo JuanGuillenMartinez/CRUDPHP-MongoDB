@@ -1,6 +1,7 @@
 <?php
     require_once $_SERVER["DOCUMENT_ROOT"] . "/php/bd/db_config.php";
     require_once $_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php';
+    error_reporting(E_ERROR | E_PARSE);
 
     class Conexion {
 

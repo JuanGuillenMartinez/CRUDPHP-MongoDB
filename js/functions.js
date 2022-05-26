@@ -29,6 +29,7 @@ function mostrarNoticias() {
         url: "/php/ObtenerNoticias.php",
         async: true,
         success: function (response) {
+            console.log(response);
             var noticias = JSON.parse(response);
             noticias.forEach((element) => {
                 var noticiaHtml = `<tr>
