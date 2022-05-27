@@ -49,13 +49,47 @@ function mostrarNoticias() {
     });
 }
 
+function poblarSelectEtiquetas() {
+    $.ajax({
+        url: "/php/ObtenerEtiquetas.php",
+        async: true,
+        success: function (response) {
+            console.log(response);
+            var etiquetas = JSON.parse(response);
+            var html = "";
+            etiquetas.forEach((element) => {
+                html += `<option value='${element.etiqueta}'>${element.etiqueta}</option>`;
+            });
+            $("#selectEtiquetas").html("");
+            $("#selectEtiquetas").append(html);
+        },
+    });
+}
+
+function poblarSelectEtiquetasEditar() {
+    $.ajax({
+        url: "/php/ObtenerEtiquetas.php",
+        async: true,
+        success: function (response) {
+            console.log(response);
+            var etiquetas = JSON.parse(response);
+            var html = "";
+            etiquetas.forEach((element) => {
+                html += `<option value='${element.etiqueta}'>${element.etiqueta}</option>`;
+            });
+            $("#selectEtiquetasEditar").html("");
+            $("#selectEtiquetasEditar").append(html);
+        },
+    });
+}
+
 function guardarNoticia() {
     var titulo = $("#inputTitulo").val();
     var descripcion = $("#inputDescripcion").val();
     var encabezado = $("#inputEncabezado").val();
     var idUsuario = $("#inputIdUsuario").val();
     var fecha = $("#inputFechaPublicacion").val();
-    var idEtiqueta = $("#inputIdEtiqueta").val();
+    var idEtiqueta = $("#selectEtiquetas option:selected").text();
     $.ajax({
         url: "/php/RegistrarNoticia.php",
         type: "POST",
@@ -74,6 +108,23 @@ function guardarNoticia() {
             $("#modalIngresarNoticia").modal("hide");
             $("#tblContact > tbody").empty();
             mostrarNoticias();
+        },
+    });
+}
+
+function registrarEtiqueta() {
+    var etiqueta = $("#inputNombreEtiqueta").val();
+    $.ajax({
+        url: "/php/RegistrarEtiqueta.php",
+        type: "POST",
+        async: true,
+        data: {
+            etiqueta: etiqueta,
+        },
+        success: function (response) {
+            var obj = response;
+            console.log(obj);
+            $("#modalIngresarEtiqueta").modal("hide");
         },
     });
 }
@@ -106,7 +157,7 @@ function editarNoticia() {
     var encabezado = $("#inputEncabezadoEditar").val();
     var idUsuario = $("#inputIdUsuarioEditar").val();
     var fecha = $("#inputFechaPublicacionEditar").val();
-    var idEtiqueta = $("#inputIdEtiquetaEditar").val();
+    var idEtiqueta = $("#selectEtiquetasEditar option:selected").text();
     $.ajax({
         url: "/php/EditarNoticia.php",
         type: "POST",
@@ -126,7 +177,6 @@ function editarNoticia() {
             mostrarNoticias();
         },
     });
-    
 }
 
 function escucharBotonEditar() {
@@ -134,6 +184,7 @@ function escucharBotonEditar() {
         e.preventDefault(); // cancela el evento por defecto ***MUY IMPORTANTE PARA EL FUNCIONAMIENTO**
         var filaActual = $(this).closest("tr"); // obtiene la fila actual
         var id = filaActual.find("td:eq(0)").text(); // obtiene el valor del primer TD de la fila actual
+        poblarSelectEtiquetasEditar();
         mostrarInformacionNoticia(id);
     });
 }
@@ -171,6 +222,9 @@ $(document).ready(function () {
     $("#btnSearch").click(function () {
         var id = $("#txtSearch").val();
         mostrarNoticiasId(id);
+    });
+    $("#btnNuevaNoticia").click(function () {
+        poblarSelectEtiquetas();
     });
     escucharBotonEditar();
     escucharBotonEliminar();

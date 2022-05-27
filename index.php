@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-12">
                 <nav class="navbar navbar-dark bg-dark">
-                    <a class="navbar-brand"><?php echo "Lista de noticias";?></a>
+                    <a class="navbar-brand"><?php echo "Lista de noticias"; ?></a>
                     <div class="form-inline">
                         <input id="txtSearch" class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
                         <button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0" type="button">Buscar</button>
@@ -22,9 +22,12 @@
             </div>
         </div>
         <br>
+        <div style="display: grid; grid-template-columns: 1fr 1fr;">
+            <button id="btnNuevaNoticia" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalIngresarNoticia">Ingresar Noticia</button>
+            <button id="btnNuevaEtiqueta" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalIngresarEtiqueta">Ingresar Etiqueta</button>
+        </div>
         <div class="row">
             <div class="col col-md-12">
-                <button id="btnNuevaNoticia" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalIngresarNoticia">Ingresar Noticia</button>
                 <div>
                     <table id="tblContact" class="table table-sm">
                         <thead>
@@ -52,6 +55,30 @@
     </section>
     <section class="modals">
         <!-- Modal Editar -->
+        <div class="modal fade" id="modalIngresarEtiqueta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar etiqueta</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="titulo-noticia">Nombre de la etiqueta</label>
+                                <input type="text" class="form-control" id="inputNombreEtiqueta" placeholder="Titulo">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" onClick="registrarEtiqueta()" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -88,8 +115,9 @@
                                 <input type="text" class="form-control" id="inputFechaPublicacionEditar" placeholder="Encabezado de la noticia">
                             </div>
                             <div class="form-group">
-                                <label for="titulo-etiqueta">Usuario</label>
-                                <input type="text" class="form-control" id="inputIdEtiquetaEditar" placeholder="Etiquetas">
+                                <label>Etiqueta</label>
+                                <select class="form-control" id="selectEtiquetasEditar">
+                                </select>
                             </div>
                         </form>
                     </div>
@@ -153,8 +181,9 @@
                                 <input type="text" class="form-control" id="inputFechaPublicacion" placeholder="Encabezado de la noticia">
                             </div>
                             <div class="form-group">
-                                <label for="titulo-id-etiqueta">Etiquetas</label>
-                                <input type="text" class="form-control" id="inputIdEtiqueta" placeholder="ID de la etiqueta">
+                                <label>Etiqueta</label>
+                                <select class="form-control" id="selectEtiquetas">
+                                </select>
                             </div>
                         </form>
                     </div>
